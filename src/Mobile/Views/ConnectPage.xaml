@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Connect Page
+  หน้าเชื่อมต่อกับโปรแกรม Desktop
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LiveXShopPro.Mobile.Views.ConnectPage"
+             Title="เชื่อมต่อ"
+             BackgroundColor="{StaticResource BackgroundDark}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="24"
+            VerticalOptions="Center">
+
+            <!-- Logo และชื่อแอพ -->
+            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label
+                    Text="Live x Shop Pro"
+                    Style="{StaticResource HeadingLarge}"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Mobile Chat Capture"
+                    Style="{StaticResource BodyText}"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- การ์ดเชื่อมต่อ -->
+            <Frame Style="{StaticResource CardFrame}">
+                <VerticalStackLayout Spacing="16">
+
+                    <Label
+                        Text="เชื่อมต่อกับโปรแกรมหลัก"
+                        Style="{StaticResource HeadingMedium}" />
+
+                    <Label
+                        Text="สแกน QR Code จากโปรแกรม Desktop เพื่อเชื่อมต่อ"
+                        Style="{StaticResource BodyText}" />
+
+                    <!-- ปุ่มสแกน QR -->
+                    <Button
+                        Text="สแกน QR Code"
+                        Style="{StaticResource PrimaryButton}"
+                        Clicked="OnScanQrClicked" />
+
+                    <!-- หรือ -->
+                    <Label
+                        Text="หรือ"
+                        Style="{StaticResource BodyText}"
+                        HorizontalOptions="Center" />
+
+                    <!-- ใส่ IP Manual -->
+                    <Entry
+                        x:Name="IpEntry"
+                        Placeholder="ใส่ IP Address (เช่น 192.168.1.100)"
+                        Style="{StaticResource DefaultEntry}" />
+
+                    <Button
+                        Text="เชื่อมต่อ"
+                        Style="{StaticResource SecondaryButton}"
+                        Clicked="OnConnectClicked" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- สถานะการเชื่อมต่อ -->
+            <Frame Style="{StaticResource CardFrame}">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="สถานะ"
+                        Style="{StaticResource HeadingMedium}" />
+                    <Label
+                        x:Name="StatusLabel"
+                        Text="ยังไม่ได้เชื่อมต่อ"
+                        TextColor="{StaticResource Warning}"
+                        FontFamily="SarabunRegular" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- คำแนะนำ -->
+            <VerticalStackLayout Spacing="8">
+                <Label
+                    Text="คำแนะนำ"
+                    Style="{StaticResource HeadingMedium}" />
+                <Label
+                    Text="1. เปิดโปรแกรม Live x Shop Pro บน Desktop"
+                    Style="{StaticResource BodyText}" />
+                <Label
+                    Text="2. ไปที่ ตั้งค่า > Mobile App"
+                    Style="{StaticResource BodyText}" />
+                <Label
+                    Text="3. สแกน QR Code ที่แสดง"
+                    Style="{StaticResource BodyText}" />
+                <Label
+                    Text="4. มือถือและ Desktop ต้องอยู่ในเครือข่ายเดียวกัน"
+                    Style="{StaticResource BodyText}" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

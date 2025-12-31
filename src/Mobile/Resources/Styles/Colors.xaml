@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Mobile App Colors
+  สีสำหรับแอพมือถือ (Dark Theme)
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- สีหลัก -->
+    <Color x:Key="Primary">#6C63FF</Color>
+    <Color x:Key="PrimaryLight">#8B83FF</Color>
+    <Color x:Key="PrimaryDark">#5249E0</Color>
+
+    <Color x:Key="Secondary">#FF6B9D</Color>
+    <Color x:Key="SecondaryLight">#FF8EB5</Color>
+
+    <!-- สีพื้นหลัง -->
+    <Color x:Key="BackgroundDark">#0D0D15</Color>
+    <Color x:Key="BackgroundMedium">#1A1A2E</Color>
+    <Color x:Key="BackgroundLight">#252542</Color>
+    <Color x:Key="CardBackground">#1E1E35</Color>
+
+    <!-- สีข้อความ -->
+    <Color x:Key="TextPrimary">#FFFFFF</Color>
+    <Color x:Key="TextSecondary">#A0A0B8</Color>
+    <Color x:Key="TextMuted">#6B6B80</Color>
+
+    <!-- สีสถานะ -->
+    <Color x:Key="Success">#4ADE80</Color>
+    <Color x:Key="Warning">#FBBF24</Color>
+    <Color x:Key="Error">#F87171</Color>
+    <Color x:Key="Info">#60A5FA</Color>
+
+    <!-- สีขอบ -->
+    <Color x:Key="Border">#2D2D50</Color>
+    <Color x:Key="BorderLight">#3D3D60</Color>
+
+</ResourceDictionary>

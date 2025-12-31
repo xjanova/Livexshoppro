@@ -1,0 +1,100 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Desktop Layer (WPF)
+  หน้า UI หลักของโปรแกรม พร้อม Dark Theme และ Glassmorphism
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- ตั้งค่า Target Framework เป็น .NET 10 Windows -->
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- ข้อมูลโปรเจค -->
+    <RootNamespace>LiveXShopPro.Desktop</RootNamespace>
+    <AssemblyName>LiveXShopPro</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Xman Studio</Authors>
+    <Company>Xman Studio</Company>
+    <Product>Live x Shop Pro</Product>
+    <Description>ระบบจัดการไลฟ์ขายของครบวงจร - Desktop Application</Description>
+    <Copyright>Copyright © Xman Studio 2024</Copyright>
+
+    <!-- ตั้งค่าภาษา -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- ตั้งค่า Application -->
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+    <StartupObject>LiveXShopPro.Desktop.App</StartupObject>
+
+    <!-- Single File Publish -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
+    <!-- ตั้งค่า Windows -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- อ้างอิง Infrastructure Layer -->
+    <ProjectReference Include="..\Infrastructure\LiveXShopPro.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- MaterialDesign UI Framework -->
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+
+    <!-- MahApps.Metro UI Framework -->
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.0.0" />
+
+    <!-- MVVM Framework -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+
+    <!-- Dependency Injection -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+
+    <!-- WebView2 สำหรับแสดงหน้าเว็บ -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+
+    <!-- Dialog และ Notification -->
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+
+    <!-- Charts และ Reports -->
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+
+    <!-- QR Code Display -->
+    <PackageReference Include="QRCoder" Version="1.6.0" />
+
+    <!-- Printing -->
+    <PackageReference Include="FastReport.OpenSource" Version="2024.2.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- รวมไฟล์ Font Sarabun -->
+    <Resource Include="Resources\Fonts\*.ttf" />
+
+    <!-- รวมไฟล์ Images -->
+    <Resource Include="Resources\Images\*.png" />
+    <Resource Include="Resources\Images\*.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- XAML Resources -->
+    <Page Update="Themes\**\*.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

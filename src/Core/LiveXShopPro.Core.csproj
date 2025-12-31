@@ -1,0 +1,42 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Core Layer
+  Domain Entities, Interfaces, และ Business Logic
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- ตั้งค่า Target Framework เป็น .NET 10 -->
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- ข้อมูลโปรเจค -->
+    <RootNamespace>LiveXShopPro.Core</RootNamespace>
+    <AssemblyName>LiveXShopPro.Core</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Xman Studio</Authors>
+    <Company>Xman Studio</Company>
+    <Product>Live x Shop Pro</Product>
+    <Description>Core Layer - Domain Entities และ Business Logic สำหรับระบบจัดการไลฟ์ขายของ</Description>
+    <Copyright>Copyright © Xman Studio 2024</Copyright>
+
+    <!-- ตั้งค่าภาษา -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- เปิดใช้งาน Documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- MediatR สำหรับ Domain Events -->
+    <PackageReference Include="MediatR" Version="12.2.0" />
+
+    <!-- FluentValidation สำหรับ Validation Rules -->
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+  </ItemGroup>
+
+</Project>
