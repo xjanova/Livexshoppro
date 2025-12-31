@@ -109,7 +109,7 @@ web.config
 # ข้อมูลผู้ใช้
 AppData/
 UserData/
-Data/
+# ไม่ใช้ Data/ เพราะจะ ignore src/Infrastructure/Data/ ด้วย
 
 # Logs
 logs/

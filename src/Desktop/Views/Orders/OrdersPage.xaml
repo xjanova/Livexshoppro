@@ -1,0 +1,385 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Orders Page
+  หน้าจัดการออเดอร์ทั้งหมด
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<Page x:Class="LiveXShopPro.Desktop.Views.Orders.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="Transparent"
+      Title="Orders">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Status Tabs -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="0"
+               Background="{StaticResource SurfaceDark}"
+               CornerRadius="12"
+               Padding="8"
+               Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ทั้งหมด -->
+                <RadioButton Grid.Column="0"
+                            x:Name="TabAll"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus"
+                            IsChecked="True">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="ทั้งหมด"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountAll"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource TextPrimary}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- รอยืนยัน -->
+                <RadioButton Grid.Column="1"
+                            x:Name="TabPending"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="รอยืนยัน"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountPending"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource Warning}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- ยืนยันแล้ว -->
+                <RadioButton Grid.Column="2"
+                            x:Name="TabConfirmed"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="ยืนยันแล้ว"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountConfirmed"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource Info}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- รอแพ็ค -->
+                <RadioButton Grid.Column="3"
+                            x:Name="TabPacking"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="รอแพ็ค"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountPacking"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource SecondaryBrush}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- จัดส่งแล้ว -->
+                <RadioButton Grid.Column="4"
+                            x:Name="TabShipped"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="จัดส่งแล้ว"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountShipped"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource PrimaryBrush}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- สำเร็จ -->
+                <RadioButton Grid.Column="5"
+                            x:Name="TabCompleted"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="สำเร็จ"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountCompleted"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource Success}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <!-- ยกเลิก -->
+                <RadioButton Grid.Column="6"
+                            x:Name="TabCancelled"
+                            Style="{StaticResource NavButton}"
+                            GroupName="OrderStatus">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="ยกเลิก"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="13"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="CountCancelled"
+                                  Text="0"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource Error}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Search & Actions Bar -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Search Box -->
+            <Border Grid.Column="0"
+                   Background="{StaticResource SurfaceDark}"
+                   CornerRadius="8"
+                   Padding="12,8"
+                   Margin="0,0,12,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <md:PackIcon Grid.Column="0"
+                                Kind="Magnify"
+                                Width="20" Height="20"
+                                Foreground="{StaticResource TextSecondary}"
+                                VerticalAlignment="Center"/>
+
+                    <TextBox x:Name="SearchBox"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            FontFamily="{StaticResource SarabunRegular}"
+                            FontSize="14"
+                            Foreground="{StaticResource TextPrimary}"
+                            md:HintAssist.Hint="ค้นหาออเดอร์ (เลขออเดอร์, ชื่อ, เบอร์โทร)"
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Action Buttons -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <!-- Filter -->
+                <Button Style="{StaticResource SecondaryButton}"
+                       Padding="12,8"
+                       Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Filter" Width="18" Height="18" Margin="0,0,6,0"/>
+                        <TextBlock Text="กรอง"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Export -->
+                <Button Style="{StaticResource SecondaryButton}"
+                       Padding="12,8"
+                       Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Download" Width="18" Height="18" Margin="0,0,6,0"/>
+                        <TextBlock Text="Export"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- New Order -->
+                <Button Style="{StaticResource PrimaryButton}"
+                       Padding="12,8">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Plus" Width="18" Height="18" Margin="0,0,6,0"/>
+                        <TextBlock Text="สร้างออเดอร์"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Orders DataGrid -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="2"
+               Style="{StaticResource GlassCard}"
+               Padding="0">
+            <DataGrid x:Name="OrdersDataGrid"
+                     Style="{StaticResource GlassDataGrid}"
+                     AutoGenerateColumns="False"
+                     IsReadOnly="True"
+                     CanUserAddRows="False"
+                     CanUserDeleteRows="False"
+                     SelectionMode="Single"
+                     RowHeight="60">
+
+                <DataGrid.Columns>
+                    <!-- Checkbox -->
+                    <DataGridCheckBoxColumn Width="50"/>
+
+                    <!-- Order Number -->
+                    <DataGridTemplateColumn Header="เลขออเดอร์" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderNumber}"
+                                          FontFamily="{StaticResource SarabunMedium}"
+                                          Foreground="{StaticResource PrimaryBrush}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Customer -->
+                    <DataGridTemplateColumn Header="ลูกค้า" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" Margin="8,0">
+                                    <TextBlock Text="{Binding CustomerName}"
+                                              FontFamily="{StaticResource SarabunMedium}"
+                                              Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="{Binding CustomerPhone}"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="12"
+                                              Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Items -->
+                    <DataGridTemplateColumn Header="สินค้า" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ItemsSummary}"
+                                          FontFamily="{StaticResource SarabunRegular}"
+                                          Foreground="{StaticResource TextPrimary}"
+                                          TextTrimming="CharacterEllipsis"
+                                          VerticalAlignment="Center"
+                                          Margin="8,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Amount -->
+                    <DataGridTemplateColumn Header="ยอดเงิน" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TotalAmount, StringFormat=฿{0:N0}}"
+                                          FontFamily="{StaticResource SarabunBold}"
+                                          Foreground="{StaticResource Success}"
+                                          VerticalAlignment="Center"
+                                          Margin="8,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Status -->
+                    <DataGridTemplateColumn Header="สถานะ" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="8"
+                                       Padding="8,4"
+                                       Margin="8,0"
+                                       HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding StatusText}"
+                                              FontFamily="{StaticResource SarabunMedium}"
+                                              FontSize="12"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Date -->
+                    <DataGridTemplateColumn Header="วันที่" Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd/MM/yyyy HH:mm}}"
+                                          FontFamily="{StaticResource SarabunRegular}"
+                                          Foreground="{StaticResource TextSecondary}"
+                                          VerticalAlignment="Center"
+                                          Margin="8,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Actions -->
+                    <DataGridTemplateColumn Header="" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    <Button Style="{StaticResource IconButton}"
+                                           Width="32" Height="32"
+                                           ToolTip="ดูรายละเอียด">
+                                        <md:PackIcon Kind="Eye" Width="16" Height="16"/>
+                                    </Button>
+                                    <Button Style="{StaticResource IconButton}"
+                                           Width="32" Height="32"
+                                           ToolTip="พิมพ์">
+                                        <md:PackIcon Kind="Printer" Width="16" Height="16"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+
+</Page>

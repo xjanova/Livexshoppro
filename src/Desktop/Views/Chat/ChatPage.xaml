@@ -1,0 +1,508 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Chat CF Page
+  หน้าจัดการข้อความ CF และสร้างออเดอร์
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<Page x:Class="LiveXShopPro.Desktop.Views.Chat.ChatPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="Transparent"
+      Title="Chat CF">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- CF Queue -->
+            <ColumnDefinition Width="400"/>
+            <!-- Order Creation -->
+            <ColumnDefinition Width="*"/>
+            <!-- Customer Info -->
+            <ColumnDefinition Width="320"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- CF Queue - รายการ CF ที่รอดำเนินการ -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Column="0"
+               Style="{StaticResource GlassCard}"
+               Margin="0,0,8,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="CF Queue"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource TextPrimary}"/>
+                        <Border Background="{StaticResource PrimaryBrush}"
+                               CornerRadius="10"
+                               Padding="8,2"
+                               Margin="8,0,0,0"
+                               VerticalAlignment="Center">
+                            <TextBlock x:Name="QueueCountBadge"
+                                      Text="0"
+                                      FontFamily="{StaticResource SarabunBold}"
+                                      FontSize="12"
+                                      Foreground="White"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Refresh Button -->
+                    <Button Style="{StaticResource IconButton}"
+                           HorizontalAlignment="Right"
+                           ToolTip="รีเฟรช">
+                        <md:PackIcon Kind="Refresh" Width="20" Height="20"/>
+                    </Button>
+                </Grid>
+
+                <!-- Filter Tabs -->
+                <Grid Grid.Row="1" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0"
+                                x:Name="FilterPending"
+                                Content="รอดำเนินการ"
+                                Style="{StaticResource NavButton}"
+                                GroupName="QueueFilter"
+                                IsChecked="True"
+                                FontSize="12"
+                                Margin="0,0,2,0"/>
+
+                    <RadioButton Grid.Column="1"
+                                x:Name="FilterProcessed"
+                                Content="ดำเนินการแล้ว"
+                                Style="{StaticResource NavButton}"
+                                GroupName="QueueFilter"
+                                FontSize="12"
+                                Margin="2,0"/>
+
+                    <RadioButton Grid.Column="2"
+                                x:Name="FilterDuplicate"
+                                Content="Duplicate"
+                                Style="{StaticResource NavButton}"
+                                GroupName="QueueFilter"
+                                FontSize="12"
+                                Margin="2,0,0,0"/>
+                </Grid>
+
+                <!-- CF List -->
+                <ListBox x:Name="CFListBox"
+                        Grid.Row="2"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemContainerStyle="{StaticResource GlassListBoxItem}">
+
+                    <!-- Sample CF Item Template -->
+                    <!-- จะถูกแทนที่ด้วย Data Binding จริง -->
+
+                </ListBox>
+
+                <!-- Empty State -->
+                <StackPanel x:Name="CFEmptyState"
+                           Grid.Row="2"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center">
+                    <md:PackIcon Kind="CheckCircleOutline"
+                                Width="48" Height="48"
+                                Foreground="{StaticResource Success}"
+                                HorizontalAlignment="Center"/>
+                    <TextBlock Text="ไม่มี CF รอดำเนินการ"
+                              FontFamily="{StaticResource SarabunMedium}"
+                              FontSize="14"
+                              Foreground="{StaticResource TextSecondary}"
+                              HorizontalAlignment="Center"
+                              Margin="0,12,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Order Creation - สร้างออเดอร์ -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Column="1"
+               Style="{StaticResource GlassCard}"
+               Margin="4,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <TextBlock Text="สร้างออเดอร์"
+                              FontFamily="{StaticResource SarabunBold}"
+                              FontSize="18"
+                              Foreground="{StaticResource TextPrimary}"/>
+
+                    <TextBlock x:Name="OrderNumberText"
+                              Text=""
+                              FontFamily="{StaticResource SarabunMedium}"
+                              FontSize="14"
+                              Foreground="{StaticResource PrimaryBrush}"
+                              HorizontalAlignment="Right"/>
+                </Grid>
+
+                <!-- Order Items -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                        <!-- CF Message Display -->
+                        <Border Background="{StaticResource BackgroundDark}"
+                               CornerRadius="12"
+                               Padding="16"
+                               Margin="0,0,0,16">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Profile Picture -->
+                                <Ellipse Grid.Column="0"
+                                        Width="48" Height="48"
+                                        Fill="{StaticResource PrimaryBrush}"
+                                        Margin="0,0,12,0"/>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock x:Name="CFUserName"
+                                              Text="(เลือก CF จากรายการ)"
+                                              FontFamily="{StaticResource SarabunMedium}"
+                                              FontSize="14"
+                                              Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock x:Name="CFMessage"
+                                              Text=""
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="13"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              TextWrapping="Wrap"
+                                              Margin="0,4,0,0"/>
+                                    <TextBlock x:Name="CFTime"
+                                              Text=""
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="11"
+                                              Foreground="{StaticResource TextDisabled}"
+                                              Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Product Selection -->
+                        <TextBlock Text="เลือกสินค้า"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="14"
+                                  Foreground="{StaticResource TextSecondary}"
+                                  Margin="0,0,0,8"/>
+
+                        <!-- Search Product -->
+                        <Border Background="{StaticResource BackgroundDark}"
+                               CornerRadius="8"
+                               Padding="12,8"
+                               Margin="0,0,0,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <md:PackIcon Grid.Column="0"
+                                            Kind="Magnify"
+                                            Width="20" Height="20"
+                                            Foreground="{StaticResource TextSecondary}"
+                                            VerticalAlignment="Center"/>
+
+                                <TextBox x:Name="ProductSearchBox"
+                                        Grid.Column="1"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        FontFamily="{StaticResource SarabunRegular}"
+                                        FontSize="14"
+                                        Foreground="{StaticResource TextPrimary}"
+                                        md:HintAssist.Hint="ค้นหาสินค้า (ชื่อ/SKU/รหัส CF)"
+                                        Margin="8,0"
+                                        VerticalAlignment="Center"/>
+
+                                <Button Grid.Column="2"
+                                       Style="{StaticResource IconButton}"
+                                       Width="32" Height="32"
+                                       ToolTip="สแกน Barcode">
+                                    <md:PackIcon Kind="Barcode" Width="18" Height="18"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <!-- Order Items List -->
+                        <TextBlock Text="รายการสินค้า"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="14"
+                                  Foreground="{StaticResource TextSecondary}"
+                                  Margin="0,0,0,8"/>
+
+                        <ItemsControl x:Name="OrderItemsList">
+                            <!-- Order Items จะแสดงที่นี่ -->
+                        </ItemsControl>
+
+                        <!-- Add Product Button -->
+                        <Button Style="{StaticResource SecondaryButton}"
+                               Margin="0,8,0,16"
+                               HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Plus" Width="18" Height="18" Margin="0,0,8,0"/>
+                                <TextBlock Text="เพิ่มสินค้า"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Notes -->
+                        <TextBlock Text="หมายเหตุ"
+                                  FontFamily="{StaticResource SarabunMedium}"
+                                  FontSize="14"
+                                  Foreground="{StaticResource TextSecondary}"
+                                  Margin="0,0,0,8"/>
+
+                        <TextBox x:Name="OrderNotesBox"
+                                Style="{StaticResource GlassTextBox}"
+                                Height="80"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto"
+                                md:HintAssist.Hint="หมายเหตุเพิ่มเติม..."/>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Order Summary & Actions -->
+                <Border Grid.Row="2"
+                       Background="{StaticResource BackgroundDark}"
+                       CornerRadius="12"
+                       Padding="16"
+                       Margin="0,16,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Summary -->
+                        <Grid Grid.Row="0" Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="รวมทั้งหมด"
+                                          FontFamily="{StaticResource SarabunRegular}"
+                                          FontSize="13"
+                                          Foreground="{StaticResource TextSecondary}"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="1"
+                                      x:Name="OrderTotalText"
+                                      Text="฿0"
+                                      FontFamily="{StaticResource SarabunBold}"
+                                      FontSize="24"
+                                      Foreground="{StaticResource Success}"/>
+                        </Grid>
+
+                        <!-- Action Buttons -->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0"
+                                   x:Name="SkipButton"
+                                   Style="{StaticResource SecondaryButton}"
+                                   Margin="0,0,4,0"
+                                   Click="OnSkipClicked">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="SkipNext" Width="18" Height="18" Margin="0,0,6,0"/>
+                                    <TextBlock Text="ข้าม"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Grid.Column="1"
+                                   x:Name="CreateOrderButton"
+                                   Style="{StaticResource PrimaryButton}"
+                                   Margin="4,0,0,0"
+                                   Click="OnCreateOrderClicked">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="Check" Width="18" Height="18" Margin="0,0,6,0"/>
+                                    <TextBlock Text="สร้างออเดอร์"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Customer Info -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Column="2"
+               Style="{StaticResource GlassCard}"
+               Margin="8,0,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+
+                    <!-- Header -->
+                    <Grid Margin="0,0,0,16">
+                        <TextBlock Text="ข้อมูลลูกค้า"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="18"
+                                  Foreground="{StaticResource TextPrimary}"/>
+
+                        <Button Style="{StaticResource IconButton}"
+                               HorizontalAlignment="Right"
+                               ToolTip="แก้ไขข้อมูล">
+                            <md:PackIcon Kind="Pencil" Width="18" Height="18"/>
+                        </Button>
+                    </Grid>
+
+                    <!-- Customer Profile -->
+                    <Border Background="{StaticResource BackgroundDark}"
+                           CornerRadius="12"
+                           Padding="16"
+                           Margin="0,0,0,16">
+                        <StackPanel>
+                            <!-- Avatar -->
+                            <Ellipse Width="64" Height="64"
+                                    Fill="{StaticResource PrimaryBrush}"
+                                    HorizontalAlignment="Center"/>
+
+                            <TextBlock x:Name="CustomerNameText"
+                                      Text="(ยังไม่ได้เลือกลูกค้า)"
+                                      FontFamily="{StaticResource SarabunBold}"
+                                      FontSize="16"
+                                      Foreground="{StaticResource TextPrimary}"
+                                      HorizontalAlignment="Center"
+                                      Margin="0,12,0,4"/>
+
+                            <!-- Customer Stats -->
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="CustomerOrderCount"
+                                              Text="0"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              FontSize="20"
+                                              Foreground="{StaticResource PrimaryBrush}"
+                                              HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ออเดอร์"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="11"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="CustomerTotalSpent"
+                                              Text="฿0"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              FontSize="20"
+                                              Foreground="{StaticResource Success}"
+                                              HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ยอดซื้อรวม"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="11"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Contact Info -->
+                    <TextBlock Text="ข้อมูลติดต่อ"
+                              FontFamily="{StaticResource SarabunMedium}"
+                              FontSize="14"
+                              Foreground="{StaticResource TextSecondary}"
+                              Margin="0,0,0,12"/>
+
+                    <!-- Phone -->
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <md:PackIcon Grid.Column="0"
+                                    Kind="Phone"
+                                    Width="18" Height="18"
+                                    Foreground="{StaticResource TextSecondary}"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,12,0"/>
+
+                        <TextBlock x:Name="CustomerPhoneText"
+                                  Grid.Column="1"
+                                  Text="-"
+                                  FontFamily="{StaticResource SarabunRegular}"
+                                  FontSize="14"
+                                  Foreground="{StaticResource TextPrimary}"
+                                  VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Address -->
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <md:PackIcon Grid.Column="0"
+                                    Kind="MapMarker"
+                                    Width="18" Height="18"
+                                    Foreground="{StaticResource TextSecondary}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,0,12,0"/>
+
+                        <TextBlock x:Name="CustomerAddressText"
+                                  Grid.Column="1"
+                                  Text="-"
+                                  FontFamily="{StaticResource SarabunRegular}"
+                                  FontSize="14"
+                                  Foreground="{StaticResource TextPrimary}"
+                                  TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <!-- Recent Orders -->
+                    <TextBlock Text="ออเดอร์ล่าสุด"
+                              FontFamily="{StaticResource SarabunMedium}"
+                              FontSize="14"
+                              Foreground="{StaticResource TextSecondary}"
+                              Margin="0,0,0,12"/>
+
+                    <ItemsControl x:Name="RecentOrdersList">
+                        <!-- Recent Orders จะแสดงที่นี่ -->
+                    </ItemsControl>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+
+</Page>
