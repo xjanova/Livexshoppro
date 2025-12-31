@@ -75,6 +75,20 @@
     <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
     <SolidColorBrush x:Key="BorderLightBrush" Color="{StaticResource BorderColorLight}"/>
 
+    <!-- Aliases สำหรับ MainWindow -->
+    <SolidColorBrush x:Key="BackgroundDark" Color="{StaticResource BackgroundDark}"/>
+    <SolidColorBrush x:Key="SurfaceDark" Color="{StaticResource CardBackground}"/>
+    <SolidColorBrush x:Key="BorderDark" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryAccent}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryAccent}"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="{StaticResource TextPrimary}"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="{StaticResource TextSecondary}"/>
+    <SolidColorBrush x:Key="TextDisabled" Color="{StaticResource TextMuted}"/>
+    <SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="Error" Color="{StaticResource ErrorColor}"/>
+    <SolidColorBrush x:Key="Info" Color="{StaticResource InfoColor}"/>
+
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <!-- Gradient Brushes -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
@@ -104,6 +118,11 @@
 
     <FontFamily x:Key="SarabunFont">pack://application:,,,/Resources/Fonts/#Sarabun</FontFamily>
     <FontFamily x:Key="DefaultFont">Sarabun, Segoe UI, Arial</FontFamily>
+
+    <!-- Font Families ที่ใช้ใน MainWindow -->
+    <FontFamily x:Key="SarabunRegular">Sarabun, Segoe UI, Arial</FontFamily>
+    <FontFamily x:Key="SarabunMedium">Sarabun, Segoe UI, Arial</FontFamily>
+    <FontFamily x:Key="SarabunBold">Sarabun, Segoe UI, Arial</FontFamily>
 
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <!-- Typography -->

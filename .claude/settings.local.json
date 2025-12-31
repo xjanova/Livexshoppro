@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial project setup - Live x Shop Pro\n\nระบบจัดการไลฟ์ขายของครบวงจร โดย Xman Studio\n\nFeatures:\n- Clean Architecture (Core/Application/Infrastructure/Desktop)\n- WPF Desktop App with Dark Theme & Glassmorphism\n- .NET MAUI Mobile App for chat capture\n- SQLite + Entity Framework Core\n- MaterialDesign + MahApps.Metro UI\n\nDocumentation:\n- README.md - Project overview\n- ARCHITECTURE.md - System architecture\n- FEATURES.md - Feature specifications\n- DATABASE.md - Database schema\n- API.md - API documentation\n- ROADMAP.md - Development roadmap\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ]
   }
 }

@@ -1,0 +1,476 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Live x Shop Pro - Main Window
+  หน้าต่างหลักของโปรแกรม พร้อม Navigation และ Content Area
+  พัฒนาโดย Xman Studio
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<mah:MetroWindow x:Class="LiveXShopPro.Desktop.Views.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:LiveXShopPro.Desktop.ViewModels"
+        mc:Ignorable="d"
+        Title="Live x Shop Pro - ระบบจัดการไลฟ์ขายของครบวงจร"
+        TitleCharacterCasing="Normal"
+        Height="900" Width="1400"
+        MinHeight="700" MinWidth="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="{StaticResource BackgroundDark}"
+        GlowBrush="{StaticResource PrimaryBrush}"
+        BorderThickness="1"
+        ResizeMode="CanResizeWithGrip"
+        ShowTitleBar="True"
+        ShowIconOnTitleBar="True"
+        ShowMinButton="True"
+        ShowMaxRestoreButton="True"
+        ShowCloseButton="True"
+        TitleBarHeight="40">
+
+    <!-- Window Icon -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <md:PackIcon Kind="ShoppingOutline"
+                        Width="24" Height="24"
+                        Foreground="{StaticResource PrimaryBrush}"
+                        VerticalAlignment="Center"
+                        Margin="4,0,0,0"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!-- Title Bar Right Commands -->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <!-- สถานะ Live -->
+            <Button x:Name="LiveStatusButton" ToolTip="สถานะ Live">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource Error}" Margin="0,0,6,0"/>
+                    <TextBlock Text="ไม่ได้ Live" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- การเชื่อมต่อ Mobile -->
+            <Button x:Name="MobileConnectionButton" ToolTip="การเชื่อมต่อ Mobile App">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="CellphoneLink" Width="18" Height="18" Margin="0,0,6,0"/>
+                    <TextBlock Text="ไม่ได้เชื่อมต่อ" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- การแจ้งเตือน -->
+            <Button x:Name="NotificationButton" ToolTip="การแจ้งเตือน">
+                <md:Badged Badge="3" BadgeColorZoneMode="PrimaryMid">
+                    <md:PackIcon Kind="Bell" Width="20" Height="20"/>
+                </md:Badged>
+            </Button>
+
+            <!-- ตั้งค่า -->
+            <Button x:Name="SettingsButton" ToolTip="ตั้งค่า">
+                <md:PackIcon Kind="Cog" Width="20" Height="20"/>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Navigation Sidebar -->
+            <ColumnDefinition Width="260"/>
+            <!-- Main Content -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Navigation Sidebar -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Border Grid.Column="0"
+                Background="{StaticResource SurfaceDark}"
+                BorderBrush="{StaticResource BorderDark}"
+                BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!-- Logo Area -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Navigation Menu -->
+                    <RowDefinition Height="*"/>
+                    <!-- User Info -->
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Logo และชื่อโปรแกรม -->
+                <Border Grid.Row="0" Padding="20,24,20,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <md:PackIcon Kind="ShoppingOutline"
+                                        Width="40" Height="40"
+                                        Foreground="{StaticResource PrimaryBrush}"/>
+                            <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="Live x Shop Pro"
+                                          FontFamily="{StaticResource SarabunBold}"
+                                          FontSize="18"
+                                          Foreground="{StaticResource TextPrimary}"/>
+                                <TextBlock Text="by Xman Studio"
+                                          FontFamily="{StaticResource SarabunRegular}"
+                                          FontSize="11"
+                                          Foreground="{StaticResource TextSecondary}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Quick Stats -->
+                        <Border Margin="0,16,0,0"
+                                Background="{StaticResource BackgroundDark}"
+                                CornerRadius="8"
+                                Padding="12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- ออเดอร์วันนี้ -->
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="0"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              FontSize="20"
+                                              Foreground="{StaticResource PrimaryBrush}"
+                                              HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ออเดอร์"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="10"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- รอแพ็ค -->
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                    <TextBlock Text="0"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              FontSize="20"
+                                              Foreground="{StaticResource Warning}"
+                                              HorizontalAlignment="Center"/>
+                                    <TextBlock Text="รอแพ็ค"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="10"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- ยอดขาย -->
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="฿0"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              FontSize="20"
+                                              Foreground="{StaticResource Success}"
+                                              HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ยอดขาย"
+                                              FontFamily="{StaticResource SarabunRegular}"
+                                              FontSize="10"
+                                              Foreground="{StaticResource TextSecondary}"
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Navigation Menu -->
+                <ScrollViewer Grid.Row="1"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="12,0">
+
+                        <!-- หมวด: หลัก -->
+                        <TextBlock Text="หลัก"
+                                  Style="{StaticResource NavGroupHeader}"
+                                  Margin="8,8,0,8"/>
+
+                        <RadioButton x:Name="NavDashboard"
+                                    Style="{StaticResource NavButton}"
+                                    IsChecked="True"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ViewDashboard" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="แดชบอร์ด" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavLive"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Broadcast" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="ไลฟ์สด" Style="{StaticResource NavText}"/>
+                                <Border Background="{StaticResource Error}"
+                                       CornerRadius="10"
+                                       Padding="8,2"
+                                       Margin="8,0,0,0"
+                                       Visibility="Collapsed">
+                                    <TextBlock Text="LIVE"
+                                              FontSize="10"
+                                              FontFamily="{StaticResource SarabunBold}"
+                                              Foreground="White"/>
+                                </Border>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavChat"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Chat" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="แชท CF" Style="{StaticResource NavText}"/>
+                                <md:Badged Badge="0"
+                                          BadgeColorZoneMode="PrimaryMid"
+                                          Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!-- หมวด: ขาย -->
+                        <TextBlock Text="ขาย"
+                                  Style="{StaticResource NavGroupHeader}"
+                                  Margin="8,16,0,8"/>
+
+                        <RadioButton x:Name="NavOrders"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ClipboardList" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="ออเดอร์" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavProducts"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Package" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="สินค้า" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavCustomers"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="AccountGroup" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="ลูกค้า" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavPOS"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="CashRegister" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="POS" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!-- หมวด: การเงิน -->
+                        <TextBlock Text="การเงิน"
+                                  Style="{StaticResource NavGroupHeader}"
+                                  Margin="8,16,0,8"/>
+
+                        <RadioButton x:Name="NavPayments"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="CreditCard" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="การชำระเงิน" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavSlipVerify"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FileCheck" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="ตรวจสลิป" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!-- หมวด: จัดส่ง -->
+                        <TextBlock Text="จัดส่ง"
+                                  Style="{StaticResource NavGroupHeader}"
+                                  Margin="8,16,0,8"/>
+
+                        <RadioButton x:Name="NavShipping"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="TruckDelivery" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="การจัดส่ง" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavPacking"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="PackageVariant" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="สถานีแพ็ค" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!-- หมวด: รายงาน -->
+                        <TextBlock Text="รายงาน"
+                                  Style="{StaticResource NavGroupHeader}"
+                                  Margin="8,16,0,8"/>
+
+                        <RadioButton x:Name="NavReports"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ChartBar" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="รายงาน" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="NavAnalytics"
+                                    Style="{StaticResource NavButton}"
+                                    GroupName="Navigation">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ChartLine" Style="{StaticResource NavIcon}"/>
+                                <TextBlock Text="วิเคราะห์" Style="{StaticResource NavText}"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- User Info & License -->
+                <Border Grid.Row="2"
+                       Background="{StaticResource BackgroundDark}"
+                       Padding="16">
+                    <StackPanel>
+                        <!-- License Status -->
+                        <Border Background="{StaticResource SurfaceDark}"
+                               CornerRadius="8"
+                               Padding="12"
+                               Margin="0,0,0,12">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="ShieldCheck"
+                                                Width="16" Height="16"
+                                                Foreground="{StaticResource Success}"
+                                                VerticalAlignment="Center"/>
+                                    <TextBlock Text="License: Pro"
+                                              FontFamily="{StaticResource SarabunMedium}"
+                                              FontSize="12"
+                                              Foreground="{StaticResource Success}"
+                                              Margin="6,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="หมดอายุ: 31 ธ.ค. 2568"
+                                          FontFamily="{StaticResource SarabunRegular}"
+                                          FontSize="10"
+                                          Foreground="{StaticResource TextSecondary}"
+                                          Margin="22,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Version -->
+                        <TextBlock Text="v1.0.0 | Xman Studio"
+                                  FontFamily="{StaticResource SarabunRegular}"
+                                  FontSize="10"
+                                  Foreground="{StaticResource TextDisabled}"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- Main Content Area -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Column="1" Background="{StaticResource BackgroundDark}">
+            <Grid.RowDefinitions>
+                <!-- Page Header -->
+                <RowDefinition Height="Auto"/>
+                <!-- Page Content -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Page Header -->
+            <Border Grid.Row="0"
+                   Background="{StaticResource SurfaceDark}"
+                   BorderBrush="{StaticResource BorderDark}"
+                   BorderThickness="0,0,0,1"
+                   Padding="24,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Page Title -->
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PageTitle"
+                                  Text="แดชบอร์ด"
+                                  FontFamily="{StaticResource SarabunBold}"
+                                  FontSize="24"
+                                  Foreground="{StaticResource TextPrimary}"/>
+                        <TextBlock x:Name="PageSubtitle"
+                                  Text="ภาพรวมการขายและสถิติของร้าน"
+                                  FontFamily="{StaticResource SarabunRegular}"
+                                  FontSize="13"
+                                  Foreground="{StaticResource TextSecondary}"
+                                  Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- Quick Actions -->
+                    <StackPanel Grid.Column="1"
+                               Orientation="Horizontal"
+                               VerticalAlignment="Center">
+
+                        <!-- Search Box -->
+                        <Border Background="{StaticResource BackgroundDark}"
+                               CornerRadius="8"
+                               Padding="12,8"
+                               Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Magnify"
+                                            Width="18" Height="18"
+                                            Foreground="{StaticResource TextSecondary}"
+                                            VerticalAlignment="Center"/>
+                                <TextBox x:Name="SearchBox"
+                                        Width="200"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        FontFamily="{StaticResource SarabunRegular}"
+                                        FontSize="13"
+                                        Foreground="{StaticResource TextPrimary}"
+                                        md:HintAssist.Hint="ค้นหา... (Ctrl+K)"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- เริ่มไลฟ์ Button -->
+                        <Button x:Name="StartLiveButton"
+                               Style="{StaticResource PrimaryButton}"
+                               Padding="16,10">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Broadcast"
+                                            Width="18" Height="18"
+                                            Margin="0,0,8,0"/>
+                                <TextBlock Text="เริ่มไลฟ์"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Page Content Frame -->
+            <Border Grid.Row="1" Padding="24">
+                <Frame x:Name="ContentFrame"
+                      NavigationUIVisibility="Hidden"
+                      Background="Transparent"/>
+            </Border>
+        </Grid>
+    </Grid>
+
+</mah:MetroWindow>
