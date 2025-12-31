@@ -1,0 +1,23 @@
+{
+  "name": "livexshoppro",
+  "version": "0.1.0",
+  "description": "Live Shopping Platform for Real-time Product Sales",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "echo 'Development server not configured yet'",
+    "build": "echo 'Build not configured yet'",
+    "test": "echo 'Tests not configured yet'",
+    "lint": "echo 'Linting not configured yet'"
+  },
+  "keywords": [
+    "live-shopping",
+    "e-commerce",
+    "streaming",
+    "real-time"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
